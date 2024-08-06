@@ -32,42 +32,45 @@ export default function CameraStream() {
   const connectionStatus = ReadyState[readyState];
 
   return (
-    <Card className="w-full max-w-2xl mx-auto">
-      <CardHeader>
-        <CardTitle>JPEG Stream</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="flex items-center justify-between">
-          <span className="text-sm text-gray-500">
-            Status: {connectionStatus}
-          </span>
-          <Button
-            onClick={toggleStream}
-            variant={isStreaming ? "destructive" : "default"}
-          >
-            {isStreaming ? "Stop" : "Start"} Stream
-          </Button>
-        </div>
+    <main className="flex flex-col items-center p-24">
+      <h1 className="text-3xl font-bold mb-6 text-foreground">Raspberry Pi</h1>
+      <Card className="w-full max-w-2xl mx-auto">
+        <CardHeader>
+          <CardTitle>JPEG Stream</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-gray-500">
+              Status: {connectionStatus}
+            </span>
+            <Button
+              onClick={toggleStream}
+              variant={isStreaming ? "destructive" : "default"}
+            >
+              {isStreaming ? "Stop" : "Start"} Stream
+            </Button>
+          </div>
 
-        {error && (
-          <Alert variant="destructive">
-            <AlertDescription>{error}</AlertDescription>
-          </Alert>
-        )}
-
-        <div className="relative bg-gray-100 aspect-video">
-          {readyState !== ReadyState.OPEN && (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-gray-500">{connectionStatus}...</span>
-            </div>
+          {error && (
+            <Alert variant="destructive">
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
           )}
-          <img
-            ref={imgRef}
-            alt="JPEG Stream"
-            className="w-full h-full object-contain"
-          />
-        </div>
-      </CardContent>
-    </Card>
+
+          <div className="relative bg-gray-100 aspect-video">
+            {readyState !== ReadyState.OPEN && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="text-gray-500">{connectionStatus}...</span>
+              </div>
+            )}
+            <img
+              ref={imgRef}
+              alt="JPEG Stream"
+              className="w-full h-full object-contain"
+            />
+          </div>
+        </CardContent>
+      </Card>
+    </main>
   );
 }
